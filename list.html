@@ -20,16 +20,19 @@
     }
     .tool{
         height: 100%;
+        width: 218px;
+        background: #ccc;
+        overflow:scroll;  border-right:1px solid;
     }
     .box{
         height: auto;
         width: 200px;
+        background: #ccc;
     }
     .list{
         width: 200px;
         height: auto;
         background: red;
-
         transition: all 0.1s;
     }
     .listbox{
@@ -62,27 +65,28 @@
 </style>
 <body>
 <div class="tool">
-    <butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
-    <butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
-    <butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
+    <butbut box="一级" :son="son1"></butbut>
+    <butbut box="二级" :son="son2"></butbut>
+    <butbut box="三级" :son="son3"></butbut>
+    <butbut box="三级" :son="son3"></butbut>
+    <butbut box="三级" :son="son3"></butbut>
 </div>
 </body>
 <script>
     Vue.component('butbut',{
 //        传参数
-        props: ['box','son1','son2','son3'],
+        props: ['box','son'],
         template:"<div class='box'>" +
         "<div class='list'>" +
         "    <div class='listbox' @click='push()'>{{box}}</div>" +
         "    <div class='listcon' :class='{show:show}'>" +
-        "        <div class='son'>{{son1}}</div>" +
-        "        <div class='son'>{{son2}}</div>" +
-        "        <div class='son'>{{son3}}</div>" +
+        "        <div class='son' v-for='data in son'>{{data}}</div>" +
         "    </div>" +
         "</div>" +
         "</div>",
         data:function () {
             return {show:false};
+
         },
         methods:{
             push(){
@@ -98,6 +102,11 @@
 
     new Vue({
         el:".tool",
+        data:{
+            son1:["一栏1","一栏2","一栏3"],
+            son2:["二栏1","二栏2","二栏3"],
+            son3:["三栏1","三栏2","三栏3"],
+        }
     })
 </script>
 </html>
