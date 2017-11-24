@@ -6,7 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="vue/dist/vue.js"></script>
-    <script src="js/jquery-3.2.1.js"></script>
     <title>列表</title>
 </head>
 <style>
@@ -23,14 +22,15 @@
         height: 100%;
     }
     .box{
-       height: 100%;
+        height: auto;
         width: 200px;
-        background: #ccc;
     }
     .list{
         width: 200px;
         height: auto;
         background: red;
+
+        transition: all 0.1s;
     }
     .listbox{
         height:40px;
@@ -39,10 +39,12 @@
         text-align: center;
         line-height: 40px;
         background: yellow;
+        transition: all 0.1s;
     }
     .listcon{
         height: auto;
         display: block;
+        transition: all 0.1s;
     }
     .son{
         background: green;
@@ -54,10 +56,15 @@
     .tal{
         height: 0px;
     }
+    .show{
+        display: none;
+    }
 </style>
 <body>
 <div class="tool">
-<butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
+    <butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
+    <butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
+    <butbut box="上级" son1="第一栏" son2="第二栏" son3="第三栏"></butbut>
 </div>
 </body>
 <script>
@@ -66,8 +73,8 @@
         props: ['box','son1','son2','son3'],
         template:"<div class='box'>" +
         "<div class='list'>" +
-        "    <div class='listbox'>{{box}}</div>" +
-        "    <div class='listcon'>" +
+        "    <div class='listbox' @click='push()'>{{box}}</div>" +
+        "    <div class='listcon' :class='{show:show}'>" +
         "        <div class='son'>{{son1}}</div>" +
         "        <div class='son'>{{son2}}</div>" +
         "        <div class='son'>{{son3}}</div>" +
@@ -75,23 +82,22 @@
         "</div>" +
         "</div>",
         data:function () {
-            return {tal:false};
+            return {show:false};
         },
         methods:{
-//            push(){
-//                this.tal=true;
-//            }
-        }
+            push(){
+                if(!this.show){
+                    this.show=true;
+                }else{
+                    this.show=false;
+                }
+            }
+        },
     })
 
 
     new Vue({
         el:".tool",
     })
-
-//    点击
-$(".listbox").click(function () {
-    $(this).next().slideToggle("fast");
-})
 </script>
 </html>
